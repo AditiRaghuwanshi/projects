@@ -1,16 +1,25 @@
 import { Component } from "react";
+import CardList from "./components/card-list";
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      monsters: [{ id:'1', name: "Aditi" }, { id:'2', name: "Rahul" }, { id:'3', name: "Vinesh" }],
+      monsters: [],
     };
   }
+
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users").then((response) =>
+      response.json().then((users) => this.setState({ monsters: users }))
+    );
+  }
+
   render() {
     return (
       <div>
+        <CardList name="Radhe" />
         {this.state.monsters.map((monster) => (
           <h1 key={monster.id}>{monster.name}</h1>
         ))}
